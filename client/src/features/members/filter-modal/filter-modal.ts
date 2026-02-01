@@ -14,6 +14,7 @@ export class FilterModal {
 closeModal= output();
 submitData = output<MemberParams>();
 
+//memberParams= input(new MemberParams());
 memberParams=model(new MemberParams());
 
 /**
@@ -27,7 +28,7 @@ constructor() {
 
     this.memberParams.set(JSON.parse(filters));
  
-
+   
   }
 
 }

@@ -7,6 +7,7 @@ import { MemberCard } from "../member-card/member-card";
 import { PaginatedResult } from '../../../types/pagination';
 import { Paginator } from "../../../shared/paginator/paginator";
 import { FilterModal } from '../filter-modal/filter-modal';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-member-list',
@@ -19,6 +20,8 @@ export class MemberList implements OnInit {
 @ViewChild('filterModal') modal! :FilterModal;
 
 private memberService = inject(MemberService);
+
+
 protected paginatedMembers = signal<PaginatedResult<Member>|null>(null);
 
 
@@ -119,5 +122,8 @@ return filters.length > 0 ? `Selected: ${filters.join('  | ')} ` : 'All members'
 
 
 }
+
+
+
 
 }
