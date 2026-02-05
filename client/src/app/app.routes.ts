@@ -10,7 +10,7 @@ import { NotFound } from '../shared/errors/not-found/not-found';
 import { ServerError } from '../shared/errors/server-error/server-error';
 import { MemberProfile } from '../features/members/member-profile/member-profile';
 import { MemberPhotos } from '../features/members/member-photos/member-photos';
-import { MemberMessages } from '../features/members/member-messages/member-messages';
+import {MemberMessages} from '../features/members/member-messages/member-messages';
 import { memberResolver } from '../features/members/member-resolver';
 import { preventUnsavedChangesGuard } from '../core/guards/prevent-unsaved-changes-guard';
 

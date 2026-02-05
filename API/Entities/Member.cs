@@ -36,6 +36,12 @@ public List<Photo> Photos { get; set; }=[];
 public List<MemberLike> LikedByMembers { get; set; }=[];
 [JsonIgnore]
 public List<MemberLike> LikedMembers { get; set; }=[];
+[JsonIgnore]
+public List<Messagee> MessagesSent { get; set; }=[];
+
+
+[JsonIgnore]
+public List<Messagee> MessagesReceived{ get; set; }=[];
 
 
 [JsonIgnore]

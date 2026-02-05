@@ -1,13 +1,14 @@
-using System;
+
 using API.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data;
 
-public class AppDbContext(DbContextOptions options) : DbContext(options)
+public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
 {
-    public DbSet<AppUser>Users {get;set;}
+
 
     public DbSet<Member>Members {get;set;}
 
@@ -15,10 +16,26 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
     public DbSet<MemberLike>Likes {get;set;}
 
+    public DbSet<Messagee>Messagees {get;set;}
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+
+modelBuilder.Entity<Messagee>()
+.HasOne(x=>x.Recipient)
+.WithMany(m=>m.MessagesReceived)
+.OnDelete(DeleteBehavior.Restrict);
+
+
+modelBuilder.Entity<Messagee>()
+.HasOne(x=>x.Sender)
+.WithMany(m=>m.MessagesSent)
+.OnDelete(DeleteBehavior.Restrict);
+
+
 
 modelBuilder.Entity<MemberLike>()
 .HasKey(x=>new {x.SourceMemberId,x.TargetMemberId});
@@ -43,6 +60,15 @@ modelBuilder.Entity<MemberLike>()
         v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
         
         );
+
+           var nullableDateTimeConverter = new ValueConverter<DateTime?,DateTime?>(
+        
+        v =>v.HasValue ? v.Value.ToUniversalTime() : null,
+        v =>v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) :null
+        
+        );
+
+
         foreach(var entityTpe in modelBuilder.Model.GetEntityTypes()){
 
             foreach(var property in entityTpe.GetProperties())
@@ -51,6 +77,13 @@ modelBuilder.Entity<MemberLike>()
                 {
                     
                     property.SetValueConverter(dateTimeConverter);
+
+                }
+                else if(property.ClrType == typeof(DateTime?))
+                {
+                    property.SetValueConverter(nullableDateTimeConverter);
+ 
+
                 }
 
             }
