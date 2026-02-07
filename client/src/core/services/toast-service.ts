@@ -19,7 +19,7 @@ private createToastContainer(){
 
     const container =document.createElement('div');
     container.id = 'toast-container';
-    container.className='toast toast-to-bottom toast-end';
+    container.className='toast toast-to-bottom toast-end z-50';
     document.body.appendChild(container);
 
 

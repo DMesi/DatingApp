@@ -7,15 +7,15 @@ namespace API.Extensions;
 
 public static class AppUserExtensions
 {
-public static UserDto ToDto(this AppUser user, ITokenSerervice tokenSerervice)
+public static async Task<UserDto> ToDto(this AppUser user, ITokenSerervice tokenSerervice)
 {
                     return new UserDto
 {
     Id=user.Id,
     DisplayName = user.DisplayName,
-    Email = user.Email,
+    Email = user.Email!,
     ImageUrl =user.ImageUrl,
-    Token= tokenSerervice.CreateToken(user)
+    Token= await tokenSerervice.CreateToken(user)
 
 };
 
