@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260212113230_MessageGroupAdded")]
+    partial class MessageGroupAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.2");
@@ -272,21 +275,21 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = "member-id",
-                            ConcurrencyStamp = "e5502c6f-e78f-41bb-8678-930ce5533c96",
+                            ConcurrencyStamp = "af7bfb8e-f9f9-4c8d-b0ef-907c4ad21a6e",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = "moderator-id",
-                            ConcurrencyStamp = "c0722782-c32d-4802-8e69-38f788ed8b37",
+                            ConcurrencyStamp = "e1e3415f-218f-4d58-a76b-c9306f81b60f",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
                             Id = "admin-id",
-                            ConcurrencyStamp = "10c1ded6-bb4e-4176-afb5-e71dbac7d2f9",
+                            ConcurrencyStamp = "3cdf0088-d6f8-4fd1-a6f6-f6de2afb571b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

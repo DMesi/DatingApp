@@ -29,6 +29,7 @@
     <Folder Include="Interfaces/" />
     <Folder Include="Middleware/" />
     <Folder Include="Services/" />
+    <Folder Include="SignalIR/" />
   </ItemGroup>
 
 </Project>

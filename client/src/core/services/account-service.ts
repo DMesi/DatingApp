@@ -4,6 +4,8 @@ import { LoginCreds, RegisterCreds, User } from '../../types/user';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LikesService } from './likes-service';
+import { PresenceService } from './presence-service';
+import { HubConnection, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,9 @@ export class AccountService {
 
 private http = inject(HttpClient);
 private likeService= inject(LikesService);
+
+
+private presenceService = inject(PresenceService)
 currentUser = signal<User | null>(null);
 
 private baseUrl=environment.apiUrl;
@@ -48,7 +53,7 @@ login(creds:LoginCreds){
 
 refreshToken(){
 
-return this.http.post<User>(this.baseUrl + 'account/refresh-token', {},{withCredentials:true})
+return this.http.post<User>(this.baseUrl + 'account/refresh-token/', {},{withCredentials:true})
 
 }
 
@@ -56,7 +61,7 @@ startTokenRefreshInterval(){
 
 setInterval(()=>{
 
-this.http.post<User>(this.baseUrl + 'account/refresh-token', {},{withCredentials:true}).subscribe({
+this.http.post<User>(this.baseUrl + 'account/refresh-token/', {},{withCredentials:true}).subscribe({
 
 
   next: user=>{
@@ -83,6 +88,14 @@ setCurrentUser(user:User){
         this.currentUser.set(user);
         this.likeService.getLikeIds;
 
+        if(this.presenceService.hubConnection?.state !== HubConnectionState.Connected){
+
+            this.presenceService.createHubConnection(user);
+
+        }
+          
+        
+
 
 }
 
@@ -92,6 +105,7 @@ logout(){
 localStorage.removeItem('filters');
 this.likeService.clearLikeIds();
   this.currentUser.set(null);
+  this.presenceService.stopHubConnection();
 
 }
 

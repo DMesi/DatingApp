@@ -19,6 +19,12 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>
 
     public DbSet<Messagee>Messagees {get;set;}
 
+ public DbSet<Group>Groups {get;set;}
+
+
+
+ public DbSet<Connection>Connections {get;set;}
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
