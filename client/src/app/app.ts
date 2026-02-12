@@ -6,13 +6,14 @@ import { Nav } from "../layout/nav/nav";
 //mport { AccountService } from '../core/services/account-service';
 import { Home } from "../features/home/home";
 import { User } from '../types/user';
+import { ConfirmDialog } from "../shared/confirm-dialog/confirm-dialog";
 
 @Component({
   selector: 'app-root',
   
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [Nav, RouterOutlet]
+  imports: [Nav, RouterOutlet, ConfirmDialog]
 })
 export class App {
 

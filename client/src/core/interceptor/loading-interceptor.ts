@@ -43,6 +43,12 @@ invalidateCache('/messages')
 
 }
 
+if(req.method.includes('POST')&& req.url.includes('/logout')){
+
+
+
+  cache.clear();
+}
 
 
 if(req.method ==='GET'){

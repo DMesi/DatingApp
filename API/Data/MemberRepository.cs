@@ -56,10 +56,6 @@ query = query.Where(m => m.Id != memberParams.CurrentMemberId);
        .ToListAsync();
     }
 
-    public async Task<bool> SaveAllAsync()
-    {
-        return await context.SaveChangesAsync()>0;
-    }
 
     public void Update(Member member)
     {
