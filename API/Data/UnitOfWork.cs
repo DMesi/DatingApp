@@ -11,10 +11,15 @@ public class UnitOfWork(AppDbContext context) : IUnitOfWork
      private IMessageRepository? _messageRepository;
     private ILikesRepository? _likeRepository;
 
+    private IPhotoRepository? _photoRepository;
+
 
     public IMemberRepository MemberRepository => _memberRepository ??= new MemberRepository(context);
     public IMessageRepository MessageRepository => _messageRepository ??= new MessageRepository(context);
     public ILikesRepository LikesRepository => _likeRepository??= new LikesRepository(context);
+
+    public IPhotoRepository PhotoRepository => _photoRepository ??= new PhotoRepository(context);
+
     public async Task<bool> Complete()
     {
         try

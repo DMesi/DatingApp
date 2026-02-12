@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, OnInit, signal, ViewChild, viewChild, ɵɵsetComponentScope } from '@angular/core';
-import { Admin } from '../admin';
+
 import { AdminService } from '../../../core/services/admin-service';
 import { User } from '../../../types/user';
 

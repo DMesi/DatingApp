@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable,signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../types/user';
+import { Photo } from '../../types/member';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class AdminService {
   baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
 
+photos = signal<Photo[]>([]);
 
   getUserWithRoles(){
 
@@ -24,5 +26,30 @@ return this.http.get<User[]>(this.baseUrl + 'admin/users-with-roles');
 return this.http.post<string[]>(this.baseUrl+'admin/edit-roles/' + userId + '?roles=' + roles,{})
 
   }
-  
+
+
+
+
+getPhotosForApproval(){
+
+
+
+return this.http.get<Photo[]>(this.baseUrl + 'admin/photos-to-moderate');
+
+
+}
+ 
+///admin/approve-photo/11
+approvePhoto(photoId:number)
+{
+return this.http.post<string>(this.baseUrl+'admin/approve-photo/' + photoId,{})
+
+}  
+
+//api/admin/reject-photo/12
+rejectPhoto(photoId:number){
+
+return this.http.post<string>(this.baseUrl+'admin/reject-photo/' + photoId,{})
+
+}
 }

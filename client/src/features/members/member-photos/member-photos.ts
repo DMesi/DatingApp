@@ -9,6 +9,7 @@ import { User } from '../../../types/user';
 import { AccountService } from '../../../core/services/account-service';
 import { StarButton } from "../../../shared/star-button/star-button";
 import { DeleteButton } from "../../../shared/delete-button/delete-button";
+import { Field } from "@angular/forms/signals";
 
 @Component({
   selector: 'app-member-photos',

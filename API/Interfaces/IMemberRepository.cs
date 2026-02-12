@@ -13,7 +13,7 @@ Task<PaginatedResult<Member>> GetMembersAsync(MemberParams memberParams);
 
 Task<Member?>GetMemberByIdAsync(string id);
 
-Task<IReadOnlyList<Photo>>GetPhotosForMemberAsync(string memberId);
+Task<IEnumerable<Photo>>GetPhotosForMemberAsync(string userId, bool isCurrentUser);
 
 Task<Member?>GetMemberForUpdate(string id);
 }

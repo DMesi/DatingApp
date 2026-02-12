@@ -42,7 +42,9 @@ namespace API.Controllers
 public async Task<ActionResult<IReadOnlyList<Photo>>> GetMemberPhotos(string id)
         {
             
-            return Ok(await uow.MemberRepository.GetPhotosForMemberAsync(id));
+            var isCurrentUser = User.GetMemberId() == id;
+
+          return Ok(await uow.MemberRepository.GetPhotosForMemberAsync(id, isCurrentUser));
         }
 
 
@@ -95,11 +97,11 @@ public async Task<ActionResult<IReadOnlyList<Photo>>> GetMemberPhotos(string id)
                 MemberId = User.GetMemberId()   
             };  
 
-            if(member.ImageUrl == null)
-            {
-                member.ImageUrl = photo.Url;
-                member.User.ImageUrl = photo.Url;
-            }
+            // if(member.ImageUrl == null)
+            // {
+            //     member.ImageUrl = photo.Url;
+            //     member.User.ImageUrl = photo.Url;
+            // }
 
             member.Photos.Add(photo);
 

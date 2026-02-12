@@ -13,12 +13,13 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
         return await context.Members.FindAsync(id);
     }
 
-    public async Task<Member?> GetMemberForUpdate(string id)
+    public async Task<Member?> GetMemberForUpdate(string userId)
     {
-      return await context.Members
-      .Include(x=> x.User)
-      .Include(x=> x.Photos)
-      .SingleOrDefaultAsync(x=> x.Id == id);
+return await context.Members
+.Include(x => x.User)
+.Include(x => x.Photos)
+.IgnoreQueryFilters()
+.SingleOrDefaultAsync(x => x.Id == userId);
     }
 
     public async Task<PaginatedResult<Member>> GetMembersAsync(MemberParams memberParams)
@@ -56,6 +57,19 @@ query = query.Where(m => m.Id != memberParams.CurrentMemberId);
        .ToListAsync();
     }
 
+    public async Task<IEnumerable<Photo>> GetPhotosForMemberAsync(string userId, bool isCurrentUser)
+    {
+        
+        var query = context.Members
+        
+            .Where(x => x.Id == userId)
+
+                .SelectMany(x => x.Photos);
+                    if (isCurrentUser) query = query.IgnoreQueryFilters();
+                return await query.ToListAsync();
+
+
+    }
 
     public void Update(Member member)
     {

@@ -10,6 +10,8 @@ public required string Url { get; set; }
 
 public string? PublicId { get; set; }
 
+public bool IsApproved { get; set; }
+
 //Navigation propeerty
 
 [JsonIgnore]

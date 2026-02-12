@@ -38,7 +38,7 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>
         );
 
 
-
+        modelBuilder.Entity<Photo>().HasQueryFilter(x =>x.IsApproved);
 
 
 
